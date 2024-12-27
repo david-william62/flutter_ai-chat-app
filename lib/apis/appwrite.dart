@@ -1,4 +1,7 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:developer';
+
 
 class Appwrite {
   static final _client = Client();
@@ -7,7 +10,7 @@ class Appwrite {
   static void init() {
     _client
       .setEndpoint("https://cloud.appwrite.io/v1")
-      .setProject('676cf8c60003188f03b0')
+      .setProject(dotenv.env['project_id'])
       .setSelfSigned(status: true);
   }
 
@@ -18,4 +21,20 @@ class Appwrite {
     );
     return item.documents;
   }
+
+  static Future<String> getApiKey(keyName) async {
+    try {
+      final d = await _database.getDocument(
+      databaseId: "MyDB",
+      collectionId: "apiKeys",
+      documentId: keyName,
+      );
+      String apiKey = d.data['apiKey'];
+      log(apiKey);
+      return apiKey;
+    } catch (e) {
+      log('$e');
+      return '';
+    }
+  } 
 }

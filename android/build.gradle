@@ -11,8 +11,28 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(":app")
+    if (project.name == "path_provider_android") {
+        apply plugin: 'com.android.library'
+        android {
+            compileSdkVersion 34
+            defaultConfig {
+                minSdkVersion 16
+                targetSdkVersion 34
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1'
+    }
 }
