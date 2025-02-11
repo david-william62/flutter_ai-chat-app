@@ -5,7 +5,7 @@ import "pages/profile.dart";
 import "pages/chat.dart";
 import "pages/home.dart";
 
-const apiKey = "AIzaSyAHfxPXkbIr3KZGs5uC5b1rmV6QFOO8Se0";
+var apiKey = dotenv.env['gemini_api_key'] ?? '';
 Future<void> main() async {
   try {
     await dotenv.load();

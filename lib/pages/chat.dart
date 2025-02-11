@@ -19,14 +19,21 @@ class _ChatPageState extends State<ChatPage> {
       messages.add(text);
       controller.clear();
     });
+
+    String fullRes = "";
     setState(() {
       messages.add("");
     });
     Gemini.instance.promptStream(
         parts: [Part.text(text)], model: "gemini-1.5-flash").listen((value) {
       final res = value?.output ?? 'No Response';
+      fullRes += " $res";
       setState(() {
         messages[messages.length - 1] += " $res";
+      });
+    },onDone: () {
+      setState(() {
+        messages[messages.length - 1] = fullRes;
       });
     });
   }
