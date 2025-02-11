@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import "pages/profile.dart";
 import "pages/chat.dart";
 import "pages/home.dart";
 
+const apiKey = "AIzaSyAHfxPXkbIr3KZGs5uC5b1rmV6QFOO8Se0";
 Future<void> main() async {
   try {
     await dotenv.load();
+    Gemini.init(apiKey: apiKey);
   } catch (e) {
     debugPrint("Could not load .env file: $e");
   }

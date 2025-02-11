@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -17,6 +18,16 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {
       messages.add(text);
       controller.clear();
+    });
+    setState(() {
+      messages.add("");
+    });
+    Gemini.instance.promptStream(
+        parts: [Part.text(text)], model: "gemini-1.5-flash").listen((value) {
+      final res = value?.output ?? 'No Response';
+      setState(() {
+        messages[messages.length - 1] += " $res";
+      });
     });
   }
 
