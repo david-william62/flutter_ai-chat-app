@@ -6,9 +6,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
-      appBar: AppBar(
-        title: const Text('Home Page'),
+      extendBody: true,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('lib/images/download.jpg'),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+          ),
+        ],
       ),
     );
   }
